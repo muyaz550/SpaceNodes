@@ -838,16 +838,16 @@ async def port_forward_website(interaction: discord.Interaction, container_name:
 
 @bot.tree.command(name="deploy", description="🚀 Admin: Deploy a new VPS instance")
 @app_commands.describe(
-    ram="RAM allocation in MB (max 2048)",
-    cpu="CPU cores (max 1)",
+    ram="RAM allocation in MB (max 9000gb)",
+    cpu="CPU cores (max 90)",
     target_user="Discord user ID to assign the VPS to",
     container_name="Custom container name (default: auto-generated)",
     expiry="Time until expiry (e.g. 1d, 2h, 30m, 45s, 1y, 3M)"
 )
 async def deploy(
     interaction: discord.Interaction, 
-    ram: int = 2048, 
-    cpu: int = 1, 
+    ram: int = 90000, 
+    cpu: int = 90, 
     target_user: str = None,
     container_name: str = None,
     expiry: str = None
@@ -863,10 +863,10 @@ async def deploy(
         return
     
     # Validate parameters
-    if ram > 2048:
-        ram = 2048
-    if cpu > 1:
-        cpu = 1
+    if ram > 90000:
+        ram = 90000
+    if cpu > 90:
+        cpu = 90
     
     # Set target user
     user_id = target_user if target_user else str(interaction.user.id)
@@ -898,13 +898,11 @@ async def deploy(
 async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, container_name, expiry_date):
     # Prepare response
     embed = discord.Embed(
-        title="🔄 Creating VPS",
-        description=f"Creating a new VPS instance with the following specs:\n"
-                    f"🧠 RAM: {ram}MB\n"
-                    f"⚙️ CPU: {cpu} cores\n"
-                    f"🌐 OS: {os_type_to_display_name(os_type)}\n"
-                    f"👤 For user: {user}\n"
-                    f"⏱️ Expiry: {expiry_date if expiry_date else 'None'}",
+        title="**🛠️ Creating VPS**",
+        description=f"**💾 RAM: {ram}MB\n**"
+                    f"**🔥 CPU: {cpu} cores\n**"
+                    f"**🧊 conatiner name: {user}\n**"
+                    f"**⌚ Expiry: {expiry_date if expiry_date else 'None'}**",
         color=0x00aaff
     )
     await interaction.followup.send(embed=embed)
@@ -964,14 +962,13 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
         
         # Create a DM embed with detailed information
         dm_embed = discord.Embed(
-            title="🌟 VPS Deployed Successfully!",
-            description=f"Your VPS instance has been created with the following specs:",
+            description=f"✅ **VPS created successfully. Check your DM for details.**",
             color=0x00ff00
         )
         
-        dm_embed.add_field(name="🏷️ Container Name", value=container_name, inline=False)
-        dm_embed.add_field(name="🧠 RAM Allocation", value=f"{ram}MB", inline=True)
-        dm_embed.add_field(name="⚙️ CPU Cores", value=f"{cpu} cores", inline=True)
+        dm_embed.add_field(name="🧊 Container Name", value=container_name, inline=False)
+        dm_embed.add_field(name="💾 RAM Allocation", value=f"{ram}MB", inline=True)
+        dm_embed.add_field(name="🔥 CPU Cores", value=f"{cpu} cores", inline=True)
         dm_embed.add_field(name="💾 Storage", value=f"1000 GB (Shared storage)", inline=True)
         dm_embed.add_field(name="🔒 Root Password", value="root", inline=False)
         dm_embed.add_field(name="🌐 Operating System", value=os_type_to_display_name(os_type), inline=False)
@@ -987,17 +984,15 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
             await target_user_obj.send(embed=dm_embed)
             
             # Public success message
-            success_embed = discord.Embed(
-                title="✅ VPS Deployed Successfully",
-                description=f"VPS instance has been created for <@{user_id}>. They should check their DMs for connection details.",
-                color=0x00ff00
+            success_embed = discord.Embed
+                description=f"✅ **VPS created successfully. Check your DM for details.**" color=0x00ff00
             )
             await interaction.followup.send(embed=success_embed)
             
         except discord.Forbidden:
             # If DMs are closed
             warning_embed = discord.Embed(
-                title="⚠️ Cannot Send DM",
+                title="🔍 Cannot Send DM",
                 description=f"VPS has been created, but I couldn't send a DM with the connection details to <@{user_id}>. Please enable DMs from server members.",
                 color=0xffaa00
             )
@@ -1193,10 +1188,10 @@ async def list_servers(interaction: discord.Interaction):
             
             embed.add_field(
                 name=f"🖥️ {container_id} ({status})",
-                value=f"🧠 **RAM:** {ram_limit}MB\n"
-                      f"⚙️ **CPU:** {cpu_limit} cores\n"
+                value=f"💾 **RAM:** {ram_limit}MB\n"
+                      f"🔥 **CPU:** {cpu_limit} cores\n"
                       f"💾 **Storage:** 1000 GB (Shared)\n"
-                      f"🌐 **OS:** {os_type}\n"
+                      f" 🧊**OS:** {os_type}\n"
                       f"👑 **Created by:** {creator}\n"
                       f"⏱️ **Expires:** {expiry}",
                 inline=False
@@ -1257,15 +1252,15 @@ async def help_command(interaction: discord.Interaction):
         value="Commands available to all users:",
         inline=False
     )
-    embed.add_field(name="🔄 /start <container_name>", value="Start your VPS instance", inline=True)
-    embed.add_field(name="⏹️ /stop <container_name>", value="Stop your VPS instance", inline=True)
-    embed.add_field(name="🔄 /restart <container_name>", value="Restart your VPS instance", inline=True)
-    embed.add_field(name="🔑 /regen-ssh <container_name>", value="Regenerate SSH credentials", inline=True)
-    embed.add_field(name="📋 /list", value="List all your VPS instances", inline=True)
-    embed.add_field(name="🗑️ /delete <container_name>", value="Delete your VPS instance", inline=True)
-    embed.add_field(name="🔌 /port-add <container_name> <port>", value="Forward a port", inline=True)
-    embed.add_field(name="🌐 /port-http <container_name> <port>", value="Forward HTTP traffic", inline=True)
-    embed.add_field(name="🏓 /ping", value="Check bot latency", inline=True)
+    embed.add_field(name="/start <container_name>", value="Start your VPS instance", inline=True)
+    embed.add_field(name="/stop <container_name>", value="Stop your VPS instance", inline=True)
+    embed.add_field(name="/restart <container_name>", value="Restart your VPS instance", inline=True)
+    embed.add_field(name="/regen-ssh <container_name>", value="Regenerate SSH credentials", inline=True)
+    embed.add_field(name="/list", value="List all your VPS instances", inline=True)
+    embed.add_field(name="/delete <container_name>", value="Delete your VPS instance", inline=True)
+    embed.add_field(name="/port-add <container_name> <port>", value="Forward a port", inline=True)
+    embed.add_field(name="/port-http <container_name> <port>", value="Forward HTTP traffic", inline=True)
+    embed.add_field(name="/ping", value="Check bot latency", inline=True)
     
     # Admin commands
     if interaction.user.id in ADMIN_IDS:
@@ -1274,10 +1269,10 @@ async def help_command(interaction: discord.Interaction):
             value="Commands available only to admins:",
             inline=False
         )
-        embed.add_field(name="🚀 /deploy", value="Deploy a new VPS with custom settings", inline=True)
-        embed.add_field(name="📊 /node", value="View system resource usage", inline=True)
-        embed.add_field(name="📊 /nodedmin", value="List all VPS instances with details", inline=True)
-        embed.add_field(name="🗑️ /delete-all", value="Delete all VPS instances", inline=True)
+        embed.add_field(name="/deploy", value="Deploy a new VPS with custom settings", inline=True)
+        embed.add_field(name="/node", value="View system resource usage", inline=True)
+        embed.add_field(name="/nodedmin", value="List all VPS instances with details", inline=True)
+        embed.add_field(name="/delete-all", value="Delete all VPS instances", inline=True)
     
     await interaction.response.send_message(embed=embed)
 
