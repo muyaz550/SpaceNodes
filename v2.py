@@ -1199,10 +1199,10 @@ async def list_servers(interaction: discord.Interaction):
         else:
             embed.add_field(
                 name=f"🖥️ {container_id} ({status})",
-                value=f"🧠 **RAM:** 2048MB\n"
-                      f"⚙️ **CPU:** 1 core\n"
+                value=f"💾 **RAM:** 2048MB\n"
+                      f"🔥 **CPU:** 1 core\n"
                       f"💾 **Storage:** 1000 GB (Shared)\n"
-                      f"🌐 **OS:** Ubuntu 22.04",
+                      f"🧊 **OS:** Ubuntu 22.04",
                 inline=False
             )
 
