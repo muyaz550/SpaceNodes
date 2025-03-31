@@ -23,7 +23,7 @@ database_file = 'database.txt'
 PUBLIC_IP = '138.68.79.95'
 
 # Admin user IDs - add your admin user IDs here
-ADMIN_IDS = []  # Replace with actual admin IDs
+ADMIN_IDS = [1258646055860568094,1330372816926670979,951418376230670336]  # Replace with actual admin IDs
 
 intents = discord.Intents.default()
 intents.messages = False
