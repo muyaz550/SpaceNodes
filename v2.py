@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 from typing import Optional, Literal
 
 TOKEN = ''
-RAM_LIMIT = '16g'
+RAM_LIMIT = '64g'
 SERVER_LIMIT = 1
 database_file = 'database.txt'
 PUBLIC_IP = '138.68.79.95'
