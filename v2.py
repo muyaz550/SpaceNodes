@@ -129,8 +129,8 @@ def get_system_stats():
             used_disk = disk_values[2]
             
         return {
-            "total_memory": f"{total_mem}MB",
-            "used_memory": f"{used_mem}MB",
+            "total_memory": f"{total_mem}GB",
+            "used_memory": f"{used_mem}GB",
             "total_disk": total_disk,
             "used_disk": used_disk
         }
@@ -250,7 +250,7 @@ class ConfirmView(View):
                     f.write('')
                     
                 embed = discord.Embed(
-                    title="🗑️ All VPS Instances Deleted",
+                    title=" All VPS Instances Deleted",
                     description=f"Successfully deleted {deleted_count} VPS instances.",
                     color=0x00ff00
                 )
@@ -269,7 +269,7 @@ class ConfirmView(View):
                     remove_from_database(self.container_id)
                     
                     embed = discord.Embed(
-                        title="🗑️ VPS Deleted",
+                        title=" VPS Deleted",
                         description=f"Successfully deleted VPS instance `{self.container_name}`.",
                         color=0x00ff00
                     )
@@ -348,7 +348,7 @@ async def nodedmin(interaction: discord.Interaction):
 
     if not os.path.exists(database_file):
         embed = discord.Embed(
-            title="📊 VPS Instances",
+            title="VPS Instances",
             description="No VPS data available.",
             color=0xff0000
         )
@@ -356,7 +356,7 @@ async def nodedmin(interaction: discord.Interaction):
         return
 
     embed = discord.Embed(
-        title="📊 All VPS Instances",
+        title="All VPS Instances",
         description="Detailed information about all VPS instances",
         color=0x00aaff
     )
@@ -389,7 +389,7 @@ async def nodedmin(interaction: discord.Interaction):
             current_embed.add_field(
                 name=f"🖥️ {container_name} ({stats['status']})",
                 value=f"👤 **User:** {user}\n"
-                      f"🧠 **RAM:** {ram}MB\n"
+                      f"🧠 **RAM:** {ram}GB\n"
                       f"⚙️ **CPU:** {cpu} cores\n"
                       f"🌐 **OS:** {os_type}\n"
                       f"👑 **Creator:** {creator}\n"
@@ -838,7 +838,7 @@ async def port_forward_website(interaction: discord.Interaction, container_name:
 
 @bot.tree.command(name="deploy", description="🚀 Admin: Deploy a new VPS instance")
 @app_commands.describe(
-    ram="RAM allocation in MB (max 9000gb)",
+    ram="RAM allocation in GB (max 90gb)",
     cpu="CPU cores (max 90)",
     target_user="Discord user ID to assign the VPS to",
     container_name="Custom container name (default: auto-generated)",
@@ -884,8 +884,8 @@ async def deploy(
     
     # Show OS selection dropdown
     embed = discord.Embed(
-        title="🖥️ Select Operating System",
-        description="Please select the operating system for your VPS instance:",
+        title="**🖥️ Select Operating System**",
+        description="** 🔍 Please select the operating system for your VPS instance **",
         color=0x00aaff
     )
     
@@ -899,8 +899,9 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
     # Prepare response
     embed = discord.Embed(
         title="**🛠️ Creating VPS**",
-        description=f"**💾 RAM: {ram}MB\n**"
+        description=f"**💾 RAM: {ram}GB\n**"
                     f"**🔥 CPU: {cpu} cores\n**"
+                    f" 🧊**OS:** {os_type}\n"
                     f"**🧊 conatiner name: {user}\n**"
                     f"**⌚ Expiry: {expiry_date if expiry_date else 'None'}**",
         color=0x00aaff
@@ -916,7 +917,7 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
             "docker", "run", "-itd", 
             "--privileged", 
             "--cap-add=ALL",
-            f"--memory={ram}m",
+            f"--memory={ram}g",
             f"--cpus={cpu}",
             "--name", container_name,
             image
@@ -967,10 +968,10 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
         )
         
         dm_embed.add_field(name="🧊 Container Name", value=container_name, inline=False)
-        dm_embed.add_field(name="💾 RAM Allocation", value=f"{ram}MB", inline=True)
+        dm_embed.add_field(name="💾 RAM Allocation", value=f"{ram}GB", inline=True)
         dm_embed.add_field(name="🔥 CPU Cores", value=f"{cpu} cores", inline=True)
-        dm_embed.add_field(name="💾 Storage", value=f"1000 GB (Shared storage)", inline=True)
-        dm_embed.add_field(name="🔒 Root Password", value="root", inline=False)
+        dm_embed.add_field(name="💾 Storage", value=f"10000 GB (Shared storage)", inline=True)
+        dm_embed.add_field(name="🔒 Root Password", value="hk-i9", inline=False)
         dm_embed.add_field(name="🌐 Operating System", value=os_type_to_display_name(os_type), inline=False)
         dm_embed.add_field(name="⏱️ Expiry Date", value=expiry_date if expiry_date else "None", inline=False)
         dm_embed.add_field(name="🔑 SSH Connection Command", value=f"```{ssh_session_line}```", inline=False)
@@ -1190,9 +1191,9 @@ async def list_servers(interaction: discord.Interaction):
             
             embed.add_field(
                 name=f"🖥️ {container_id} ({status})",
-                value=f"💾 **RAM:** {ram_limit}MB\n"
+                value=f"💾 **RAM:** {ram_limit}GB\n"
                       f"🔥 **CPU:** {cpu_limit} cores\n"
-                      f"💾 **Storage:** 1000 GB (Shared)\n"
+                      f"💾 **Storage:** 10000 GB (Shared)\n"
                       f" 🧊**OS:** {os_type}\n"
                       f"👑 **Created by:** {creator}\n"
                       f"⏱️ **Expires:** {expiry}",
@@ -1201,9 +1202,9 @@ async def list_servers(interaction: discord.Interaction):
         else:
             embed.add_field(
                 name=f"🖥️ {container_id} ({status})",
-                value=f"💾 **RAM:** 2048MB\n"
-                      f"🔥 **CPU:** 1 core\n"
-                      f"💾 **Storage:** 1000 GB (Shared)\n"
+                value=f"💾 **RAM:** 90GB\n"
+                      f"🔥 **CPU:** 90 core\n"
+                      f"💾 **Storage:** 10000 GB (Shared)\n"
                       f"🧊 **OS:** Ubuntu 22.04",
                 inline=False
             )
