@@ -962,7 +962,6 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
         
         # Create a DM embed with detailed information
         dm_embed = discord.Embed(
-            title="✅ Create VPS hk-i10 Successfully"
             description=f"**✅ VPS created successfully. Check your DM for details.**",
             color=0x00ff00
         )
