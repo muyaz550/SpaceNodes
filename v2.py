@@ -388,12 +388,11 @@ async def nodedmin(interaction: discord.Interaction):
             
             current_embed.add_field(
                 name=f"🖥️ {container_name} ({stats['status']})",
-                value=f"👤 **User:** {user}\n"
-                      f"🧠 **RAM:** {ram}GB\n"
-                      f"⚙️ **CPU:** {cpu} cores\n"
+                value=f"🪩 **User:** {user}\n"
+                      f"💾 **RAM:** {ram}GB\n"
+                      f"🔥 **CPU:** {cpu} cores\n"
                       f"🌐 **OS:** {os_type}\n"
                       f"👑 **Creator:** {creator}\n"
-                      f"⏱️ **Expiry:** {expiry}\n"
                       f"🔑 **SSH:** `{ssh_command}`",
                 inline=False
             )
