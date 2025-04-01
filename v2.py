@@ -962,7 +962,8 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
         
         # Create a DM embed with detailed information
         dm_embed = discord.Embed(
-            description=f"✅ **VPS created successfully. Check your DM for details.**",
+            title="**create vps hk-i9**"
+            description=f"**✅ VPS created successfully. Check your DM for details.**",
             color=0x00ff00
         )
         
@@ -985,6 +986,7 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
             
             # Public success message
             success_embed = discord.Embed
+                teitle="** Create Vps hk-i9**"
                 description=f"✅ **VPS created successfully. Check your DM for details.**" color=0x00ff00
             )
             await interaction.followup.send(embed=success_embed)
@@ -1129,8 +1131,8 @@ async def delete_all_servers(interaction: discord.Interaction):
     # Check if user is admin
     if interaction.user.id not in ADMIN_IDS:
         embed = discord.Embed(
-            title="❌ Access Denied",
-            description="You don't have permission to use this command.",
+            title="**❌ Access Denied**",
+            description="**You don't have permission to use this command.**",
             color=0xff0000
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
@@ -1141,8 +1143,8 @@ async def delete_all_servers(interaction: discord.Interaction):
     
     # Create confirmation dialog
     confirm_embed = discord.Embed(
-        title="⚠️ Confirm Mass Deletion",
-        description=f"Are you sure you want to delete ALL {len(containers)} VPS instances? This action cannot be undone.",
+        title="**⚠️ Confirm Mass Deletion**",
+        description=f"**Are you sure you want to delete ALL {len(containers)} VPS instances? This action cannot be undone.**",
         color=0xffaa00
     )
     
@@ -1158,16 +1160,16 @@ async def list_servers(interaction: discord.Interaction):
 
     if not servers:
         embed = discord.Embed(
-            title="📋 Your VPS Instances",
-            description="You don't have any VPS instances. Use `/deploy` to create one!",
+            title="**📋 Your VPS Instances",
+            description="**You don't have any VPS instances. Use `/deploy` to create one!**",
             color=0x00aaff
         )
         await interaction.followup.send(embed=embed)
         return
 
     embed = discord.Embed(
-        title="📋 Your VPS Instances",
-        description=f"You have {len(servers)} VPS instance(s)",
+        title="**📋 Your VPS Instances**",
+        description=f"**You have {len(servers)} VPS instance(s)**",
         color=0x00aaff
     )
 
@@ -1241,8 +1243,8 @@ async def ping(interaction: discord.Interaction):
 @bot.tree.command(name="help", description="❓ Shows the help message")
 async def help_command(interaction: discord.Interaction):
     embed = discord.Embed(
-        title="🌟 VPS Bot Help",
-        description="Here are all the available commands:",
+        title="**🌟 VPS Bot Help**",
+        description="** Here are all the available commands:**",
         color=0x00aaff
     )
     
