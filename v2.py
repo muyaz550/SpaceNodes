@@ -962,7 +962,7 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
         
         # Create a DM embed with detailed information
         dm_embed = discord.Embed(
-            title="**create vps hk-i9**"
+            title="✅ Create VPS hk-i10 Successfully"
             description=f"**✅ VPS created successfully. Check your DM for details.**",
             color=0x00ff00
         )
@@ -985,10 +985,11 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
             await target_user_obj.send(embed=dm_embed)
             
             # Public success message
-            success_embed = discord.Embed
-                teitle="** Create Vps hk-i9**"
-                description=f"✅ **VPS created successfully. Check your DM for details.**" color=0x00ff00
-            
+            success_embed = discord.Embed(
+                title="**✅ Create VPS hk-i10 Successfully**",
+                description=f"** 🎉 VPS instance has been created for <@{user_id}>. They should check their DMs for connection details.",
+                color=0x00ff00
+            )
             await interaction.followup.send(embed=success_embed)
             
         except discord.Forbidden:
