@@ -904,7 +904,7 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
                     f" 🧊**OS:** {os_type}\n"
                     f"**🧊 conatiner name: {user}\n**"
                     f"**⌚ Expiry: {expiry_date if expiry_date else 'None'}**",
-        color=0x00aaff
+        color=0x00ff00
     )
     await interaction.followup.send(embed=embed)
     
@@ -995,8 +995,8 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
         except discord.Forbidden:
             # If DMs are closed
             warning_embed = discord.Embed(
-                title="🔍 Cannot Send DM",
-                description=f"VPS has been created, but I couldn't send a DM with the connection details to <@{user_id}>. Please enable DMs from server members.",
+                title="**🔍 Cannot Send DM**",
+                description=f"**VPS has been created, but I couldn't send a DM with the connection details to <@{user_id}>. Please enable DMs from server members.**",
                 color=0xffaa00
             )
             warning_embed.add_field(name="🔑 SSH Connection Command", value=f"```{ssh_session_line}```", inline=False)
