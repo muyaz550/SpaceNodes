@@ -988,7 +988,7 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
             success_embed = discord.Embed
                 teitle="** Create Vps hk-i9**"
                 description=f"✅ **VPS created successfully. Check your DM for details.**" color=0x00ff00
-            )
+            
             await interaction.followup.send(embed=success_embed)
             
         except discord.Forbidden:
