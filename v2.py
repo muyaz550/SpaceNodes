@@ -422,7 +422,7 @@ async def nodedmin(interaction: discord.Interaction):
     for i, embed in enumerate(embeds):
         await interaction.followup.send(embed=embed)
 
-@bot.tree.command(name="node", description="📊 Shows system resource usage and VPS status")
+@bot.tree.command(name="node", description="☠️ Shows system resource usage and VPS status")
 async def node_stats(interaction: discord.Interaction):
     await interaction.response.defer()
     
@@ -436,7 +436,7 @@ async def node_stats(interaction: discord.Interaction):
     )
     
     embed.add_field(
-        name="🧠 Memory Usage",
+        name="🔥 Memory Usage",
         value=f"Used: {system_stats['used_memory']} / Total: {system_stats['total_memory']}",
         inline=False
     )
@@ -448,7 +448,7 @@ async def node_stats(interaction: discord.Interaction):
     )
     
     embed.add_field(
-        name=f"🌐 VPS Instances ({len(containers)})",
+        name=f"🧊 VPS Instances ({len(containers)})",
         value="List of all VPS instances and their status:",
         inline=False
     )
@@ -838,16 +838,16 @@ async def port_forward_website(interaction: discord.Interaction, container_name:
 
 @bot.tree.command(name="deploy", description="🚀 Admin: Deploy a new VPS instance")
 @app_commands.describe(
-    ram="RAM allocation in GB (max 90gb)",
-    cpu="CPU cores (max 90)",
+    ram="RAM allocation in GB (max 16gb)",
+    cpu="CPU cores (max 24)",
     target_user="Discord user ID to assign the VPS to",
     container_name="Custom container name (default: auto-generated)",
     expiry="Time until expiry (e.g. 1d, 2h, 30m, 45s, 1y, 3M)"
 )
 async def deploy(
     interaction: discord.Interaction, 
-    ram: int = 90000, 
-    cpu: int = 90, 
+    ram: int = 16000, 
+    cpu: int = 40, 
     target_user: str = None,
     container_name: str = None,
     expiry: str = None
@@ -863,9 +863,9 @@ async def deploy(
         return
     
     # Validate parameters
-    if ram > 90000:
+    if ram > 16000:
         ram = 90000
-    if cpu > 90:
+    if cpu > 40:
         cpu = 90
     
     # Set target user
@@ -967,14 +967,14 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
             color=0x00ff00
         )
         
-        dm_embed.add_field(name="🧊 Container Name", value=container_name, inline=False)
+        
+    **dm_embed.add_field(name="🔑 SSH Connection Command", value=f"```{ssh_session_line}```", inline=False)
         dm_embed.add_field(name="💾 RAM Allocation", value=f"{ram}GB", inline=True)
         dm_embed.add_field(name="🔥 CPU Cores", value=f"{cpu} cores", inline=True)
+        dm_embed.add_field(name="🧊 Container Name", value=container_name, inline=False)
         dm_embed.add_field(name="💾 Storage", value=f"10000 GB (Shared storage)", inline=True)
-        dm_embed.add_field(name="🔒 Root Password", value="hk-i9", inline=False)
-        dm_embed.add_field(name="🌐 Operating System", value=os_type_to_display_name(os_type), inline=False)
-        dm_embed.add_field(name="⏱️ Expiry Date", value=expiry_date if expiry_date else "None", inline=False)
-        dm_embed.add_field(name="🔑 SSH Connection Command", value=f"```{ssh_session_line}```", inline=False)
+        dm_embed.add_field(name="🔒 Password", value="hk-i9", inline=False)
+        dm_embed.add_field(name="🌐 Operating System", value=os_type_to_display_name(os_type), inline=False)**
         
         dm_embed.set_footer(text="Keep this information safe and private!")
         
@@ -987,7 +987,7 @@ async def deploy_with_os(interaction, os_type, ram, cpu, user_id, user, containe
             # Public success message
             success_embed = discord.Embed(
                 title="**✅ Create VPS hk-i10 Successfully**",
-                description=f"** 🎉 VPS instance has been created for <@{user_id}>. They should check their DMs for connection details.",
+                description=f"** 🎉 VPS instance has been created for <@{user_id}>. They should check their DMs for connection details.**",
                 color=0x00ff00
             )
             await interaction.followup.send(embed=success_embed)
@@ -1102,7 +1102,7 @@ async def tips_command(interaction: discord.Interaction):
     embed = view.get_current_embed()
     await interaction.response.send_message(embed=embed, view=view)
 
-@bot.tree.command(name="delete", description="🗑️ Delete your VPS instance")
+@bot.tree.command(name="delete", description="Delete your VPS instance")
 @app_commands.describe(container_name="The name of your container")
 async def delete_server(interaction: discord.Interaction, container_name: str):
     user = str(interaction.user)
@@ -1119,8 +1119,8 @@ async def delete_server(interaction: discord.Interaction, container_name: str):
 
     # Create confirmation dialog
     confirm_embed = discord.Embed(
-        title="⚠️ Confirm Deletion",
-        description=f"Are you sure you want to delete VPS instance `{container_name}`? This action cannot be undone.",
+        title="**⚠️ Confirm Deletion**",
+        description=f"**Are you sure you want to delete VPS instance `{container_name}`? This action cannot be undone.**",
         color=0xffaa00
     )
     
@@ -1202,8 +1202,8 @@ async def list_servers(interaction: discord.Interaction):
         else:
             embed.add_field(
                 name=f"🖥️ {container_id} ({status})",
-                value=f"💾 **RAM:** 90GB\n"
-                      f"🔥 **CPU:** 90 core\n"
+                value=f"💾 **RAM:** 16GB\n"
+                      f"🔥 **CPU:** 40 core\n"
                       f"💾 **Storage:** 10000 GB (Shared)\n"
                       f"🧊 **OS:** Ubuntu 22.04",
                 inline=False
