@@ -393,7 +393,7 @@ async def nodedmin(interaction: discord.Interaction):
                       f"🔥 **CPU:** {cpu} cores\n"
                       f"🌐 **OS:** {os_type}\n"
                       f"👑 **Creator:** {creator}\n"
-                      f"🔑 **SSH:** `{ssh_command}`",
+                      f"🔑 **SSH:** `{ssh_command}`"
                 inline=False
             )
             field_count += 1
