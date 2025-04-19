@@ -388,12 +388,12 @@ async def nodedmin(interaction: discord.Interaction):
             
             current_embed.add_field(
                 name=f"🖥️ {container_name} ({stats['status']})",
-                value=f"🪩 **User:** {user}\n"
-                      f"💾 **RAM:** {ram}GB\n"
-                      f"🔥 **CPU:** {cpu} cores\n"
-                      f"🌐 **OS:** {os_type}\n"
-                      f"👑 **Creator:** {creator}\n"
-                      f"🔑 **SSH:** `{ssh_command}`"
+                value=f"🪩 **User:** {user}"
+                      f"💾 **RAM:** {ram}GB"
+                      f"🔥 **CPU:** {cpu} cores"
+                      f"🌐 **OS:** {os_type}"
+                      f"👑 **Creator:** {creator}"
+                      f"🔑 **SSH:** {ssh_command}"
                 inline=False
             )
             field_count += 1
@@ -403,7 +403,7 @@ async def nodedmin(interaction: discord.Interaction):
             
             current_embed.add_field(
                 name=f"🖥️ {container_name} ({stats['status']})",
-                value=f"👤 **User:** {user}\n"
+                value=f"👤 **User:** {user}"
                       f"🔑 **SSH:** `{ssh_command}`",
                 inline=False
             )
